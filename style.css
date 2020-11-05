@@ -1,0 +1,66 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+:root {
+    --hue-neutral: 200;
+    --hue-wrong: 0;
+    --hue-correct: 145;
+}
+
+body{
+    --hue: var(--hue-neutral);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: whitesmoke;
+}
+
+.container{
+    width: 800px;
+    max-width: 80%;
+    background-color: turquoise;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+}
+
+.button{
+    background-color: bl;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: red;
+    outline: none;
+}
+
+.start-button{
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    align-self: center;
+}
+
+#timer{
+    font-size: large;
+    float: left;
+    position: absolute;
+    top: 0;
+    
+}
+
+.hide{
+    display: none;
+}
+
+.hidden{
+    display: none;
+}
