@@ -5,7 +5,14 @@ var secondsLeft = 100;
 var questionElement = document.getElementById("question");
 var answerButtonsElement = document.getElementById("answer-buttons");
 var correct = 0;
-
+var questionNumber = -1;
+var done = false;
+var questionTitle = document.getElementById("question");
+var button1 = document.getElementById("button1");
+var button2 = document.getElementById("button2");
+var button3 = document.getElementById("button3");
+var button4 = document.getElementById("button4");
+var answerPlaceHolder = document.getElementById("answerPlaceHolder");
 var questions = [
   {
     question: "what is 2+2",
@@ -24,57 +31,66 @@ var questions = [
     answer: "2",
   },
 ];
+function loadQuestion() {
+  questionNumber++;
+  if (questionNumber >= questions.length) {
+    alert("Questions are done!"); // add fun for finish screen with screen to add initials and store the score var 
+    done = true;
+  } else {
+    questionTitle.textContent = questions[questionNumber].question;
+    answerPlaceHolder.textContent = "";
+    button1.textContent = questions[questionNumber].a;
+    button2.textContent = questions[questionNumber].b;
+    button3.textContent = questions[questionNumber].c;
+    button4.textContent = questions[questionNumber].d;
 
-function pushQuestions() {
-  var questionTitle = document.getElementById("question");
-  var button1 = document.getElementById("button1");
-  var button2 = document.getElementById("button2");
-  var button3 = document.getElementById("button3");
-  var button4 = document.getElementById("button4");
-  var answerPlaceHolder = document.getElementById("answerPlaceHolder");
-  for (let i = 0; i < questions.length; i++) {
-    let counter = 0;
-
-    questionTitle.textContent =questions[i].question;
-    button1.textContent =questions[i].a;
-    button2.textContent =questions[i].b;
-    button3.textContent =questions[i].c;
-    button4.textContent =questions[i].d;
     button1.addEventListener(
       "click",
-      isAnswerCorrect(button1.textContent, questions[i].answer, answerPlaceHolder, counter)
+      isAnswerCorrect(
+        button1.textContent,
+        questions[questionNumber].answer,
+        answerPlaceHolder
+      )
     );
     button2.addEventListener(
       "click",
-      isAnswerCorrect(button2.textContent, questions[i].answer, answerPlaceHolder, counter)
+      isAnswerCorrect(
+        button2.textContent,
+        questions[questionNumber].answer,
+        answerPlaceHolder
+      )
     );
     button3.addEventListener(
       "click",
-      isAnswerCorrect(button3.textContent, questions[i].answer, answerPlaceHolder, counter)
+      isAnswerCorrect(
+        button3.textContent,
+        questions[questionNumber].answer,
+        answerPlaceHolder
+      )
     );
     button4.addEventListener(
       "click",
-      isAnswerCorrect(button4.textContent, questions[i].answer, answerPlaceHolder, counter)
+      isAnswerCorrect(
+        button4.textContent,
+        questions[questionNumber].answer,
+        answerPlaceHolder
+      )
     );
-    function waitForIt(){
-        if (counter !== 10){
-            setTimeout(waitForIt, 2000);
-        }
-    }
-   setTimeout(5000)
-    
-    }
+  }
 }
 
 
-function isAnswerCorrect(selection, correctAnswer, answerPlaceHolder, counter) {
+function isAnswerCorrect(selection, correctAnswer, answerPlaceHolder) {
   return function () {
+    if (done) {
+      return;
+    }
     if (selection !== correctAnswer) {
-      counter--;
       answerPlaceHolder.textContent = "Wrong Answer";
+      secondsLeft -= 10
     } else {
       answerPlaceHolder.textContent = "Correct!";
-      counter = 10;
+      loadQuestion();
     }
   };
 }
@@ -92,7 +108,7 @@ function startGame() {
     }, 1000);
   }
   setTime();
-  pushQuestions();
+  loadQuestion();
 }
 
 startButton.addEventListener("click", startGame);
