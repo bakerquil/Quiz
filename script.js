@@ -24,48 +24,47 @@ var questions = [
     answer: "[",
   },
   {
-    question: "what is 1+1",
-    a: "3",
-    b: "2",
-    c: "6",
-    d: "44",
-    answer: "2",
+    question: "Html is short for",
+    a: "Hypertext Markup Language",
+    b: "Hyper text mission letters",
+    c: "Happy to meet you",
+    d: "Hundred time minutes later",
+    answer: "Hypertext Markup Language",
   },
   {
-    question: "what is 2+2",
-    a: "3",
-    b: "2",
-    c: "6",
-    d: "44",
-    answer: "2",
+    question: "What do you place after a function is defined",
+    a: "()",
+    b: "[]",
+    c: "%%",
+    d: "!)",
+    answer: "()",
   },{
-    question: "what is 3+3",
-    a: "3",
-    b: "2",
-    c: "6",
-    d: "44",
-    answer: "2",
+    question: "What does an array go inside of?",
+    a: "[]",
+    b: "--",
+    c: "()",
+    d: "<>",
+    answer: "[]",
   },{
-    question: "what is 4+3",
-    a: "3",
-    b: "2",
-    c: "6",
-    d: "44",
-    answer: "2",
+    question: "var defines what ?",
+    a: "Variable",
+    b: "Listener",
+    c: "Document Type",
+    d: "If Statement",
+    answer: "Variable",
   },{
-    question: "what is 5+3",
-    a: "3",
-    b: "2",
-    c: "6",
-    d: "44",
-    answer: "2",
-  },
+    question: "++ after a variable will do what",
+    a: "Increment it",
+    b: "Decrement it",
+    c: "Multiply it",
+    d: "Divide it",
+    answer: "Increment it",
+  }
 ];
 function loadQuestion() {
   questionNumber++;
-  if (questionNumber === questions.length) {
-    window.location.href= 'finish.html'
-    ; // add fun for finish screen with screen to add initials and store the score var 
+  if (questionNumber === questions.length + 1) {
+      
     done = true;
   } else {
     questionTitle.textContent = questions[questionNumber].question;
@@ -108,17 +107,22 @@ function loadQuestion() {
       )
     );
   }
+  if (done){
+    window.location.href= 'finish.html'
+  }
 }
 
 
 function isAnswerCorrect(selection, correctAnswer, answerPlaceHolder) {
   return function () {
+    console.log(selection,correctAnswer)
     if (done) {
       return;
     }
     if (selection !== correctAnswer) {
       answerPlaceHolder.textContent = "Wrong Answer";
       secondsLeft -= 10
+      
     } else {
       answerPlaceHolder.textContent = "Correct!";
       loadQuestion();
@@ -126,9 +130,10 @@ function isAnswerCorrect(selection, correctAnswer, answerPlaceHolder) {
       
       if (selection === correctAnswer){
       score++ 
-      localStorage.setItem('score', score);
+      
+      console.log(score);
       }
-
+      localStorage.setItem('score', score);
     }
   };
 }
